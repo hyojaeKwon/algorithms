@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 
-public class Main
+public class BOJ_6064_timedOut
 {
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(

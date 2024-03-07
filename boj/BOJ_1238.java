@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class Main
+public class BOJ_1238
 {
 
   public static int n, m, x;

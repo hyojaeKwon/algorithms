@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Arrays;
 
-public class Main
+public class BOJ_13549
 {
     public static int maxPos = 100000;
     public static int INF = 100000;

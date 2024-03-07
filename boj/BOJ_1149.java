@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.util.StringTokenizer;
 
-public class Main
+public class BOJ_1149
 {
   public static int[][][] map;
   public static void main (String[]args) throws IOException

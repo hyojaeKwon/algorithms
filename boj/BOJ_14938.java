@@ -3,7 +3,7 @@ import java.util.StringTokenizer;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 
-public class Main
+public class BOJ_14938
 {
     
     public static int[][] graph;

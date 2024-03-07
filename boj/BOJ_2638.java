@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 
-public class Main
+public class BOJ_2638
 {
 
   public static int n, m;

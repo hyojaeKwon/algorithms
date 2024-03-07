@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 /* 코드 열심히 더러움 */
 
-public class Main
+public class BOJ_2096
 {
     public static int[][][] graph;
 
