@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.util.StringTokenizer;
 import java.util.HashSet;
 import java.io.InputStreamReader;
-public class Main
+public class BOJ_11023
 {
     public static HashSet<Integer> set = new HashSet<Integer>();
     

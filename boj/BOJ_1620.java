@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.HashMap;
 
-public class Main
+public class BOJ_1620
 {
 
     
