@@ -27,18 +27,17 @@ public class BOJ_15663 {
         for(int i = 0 ; i < n ; i++){
             num[i]= Integer.parseInt(stNum.nextToken());
         }
+
         Arrays.sort(num);
         Arrays.fill(visit, false);
 
-        dfs(
-                0
-        );
+        dfs(0);
 
-        // 1799
     }
 
 
     public static void dfs(int counter){
+        // 수 출력
         if(counter == m){
             for(Integer in : numList){
                 System.out.print(in + " ");
@@ -46,6 +45,8 @@ public class BOJ_15663 {
             System.out.println();
             return;
         }
+
+        // 중복 제거
         int last = 0 ;
         for(int i = 0 ; i < n ; i++){
             if(last != num[i] && !visit[i]){
