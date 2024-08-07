@@ -13,8 +13,8 @@ public class BOJ_17144 {
     public static int[] dx = {1,-1,0,0};
     public static int[] dy = {0,0,1,-1};
 
-    public static int airRowUp;
-    public static int airRowDoun;
+    private static int airRowUp;
+    private static int airRowDown;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,9 +35,10 @@ public class BOJ_17144 {
             }
         }
         airRowUp = air.get(0);
-        airRowDoun = air.get(1);
+        airRowDown = air.get(1);
 
         for (int t = 0; t < time; t++) {
+            clearMap();
             for (int i = 0; i < row; i++) {
                 for(int j = 0; j < column; j++) {
                     if (!isAirCleaner(j, i)) {
@@ -45,9 +46,9 @@ public class BOJ_17144 {
                     }
                 }
             }
-            circularClock();
-            circularClockwise();
             merge();
+            circularClockwise();
+            circularCounterClockwise();
         }
 
         System.out.println(calculate());
@@ -78,82 +79,92 @@ public class BOJ_17144 {
 
         int nowAir = map[row][column][0];
         int spreadAmount = nowAir / 5;
+
         int times = 0;
         for (int i = 0; i < 4; i++) {
             int nx = column + dx[i];
             int ny = row + dy[i];
             if(isWall(ny, nx) ) {
                 if (!isAirCleaner(nx, ny)) {
-                    map[row][column][1] = map[row][column][1] + spreadAmount;
+                    map[ny][nx][1] = map[ny][nx][1] + spreadAmount;
                     times++;
                 }
             }
         }
         map[row][column][0] = nowAir - times * spreadAmount;
+
     }
 
     public static boolean isWall(int nrow, int ncol) {
-        return nrow < 0 || ncol < 0 || nrow >= row || ncol >= column;
+        return nrow >= 0 && ncol >= 0 && nrow < row && ncol < column;
     }
 
-    public static boolean isAirCleaner(int nCol, int nrow) {
+    public static boolean isAirCleaner(int nCol, int nRow) {
         if (nCol == 0) {
-            if(nrow == airRowDoun || nrow == airRowUp){
-                return true;
-            }
+            return nRow == airRowDown || nRow == airRowUp;
         }
         return false;
     }
 
-    public static void circularClock() {
-        // 위로
-        for (int i = 1; airRowDoun - i > 0; i++) {
-            int tmp = map[airRowDoun - i - 1][0][0];
-            map[airRowDoun - i][0][0] = tmp;
-        }
-        // 오른쪽으로
-        for (int i = 0; i < column - 1; i++) {
-            int tmp = map[airRowDoun][i + 1][0];
-            map[airRowDoun][i][0] = tmp;
-        }
-        // 아래쪽으로
-        for (int i = airRowDoun; i < row; i++) {
-            int tmp = map[row - 1][i][0];
-            map[row - 1][i - 1][0] = tmp;
-        }
-        // 왼쪽으로
-        for (int i = 1; i < column - 2; i++) {
-            int tmp = map[row-1][column - i - 1][0];
-            map[row-1][column - i][0] = tmp;
-        }
-
-    }
+    // 공기가 시계방향으로 순환 = airRowDown
     public static void circularClockwise() {
-        // 아래쪽으로
-        for (int i = 1; i < airRowUp; i++) {
-            int tmp = map[row - 1][i][0];
-            map[row - 1][i - 1][0] = tmp;
-        }
-
-        // 오른쪽으로
-        for (int i = 0; i < column - 1; i++) {
-            int tmp = map[0][i + 1][0];
-            map[0][i][0] = tmp;
-        }
-
         // 위로
-        for (int i = 1; airRowUp - i > 0; i++) {
-            int tmp = map[airRowUp - i - 1][0][0];
-            map[airRowUp - i][0][0] = tmp;
+        for (int i = 0; i < row - airRowDown - 2; i++) {
+            int tmp = map[airRowDown + 2 + i][0][0];
+            map[airRowDown + 1 + i][0][0] = tmp;
         }
-
         // 왼쪽으로
-        for (int i = 1; i < column - 2; i++) {
-            int tmp = map[airRowUp][column - i - 1][0];
-            map[airRowUp][column - i][0] = tmp;
+        if(row - 1 != airRowDown){
+            for (int i = 0; i < column - 1; i++) {
+                int tmp = map[row-1][i + 1][0];
+                map[row-1][i][0] = tmp;
+            }
         }
+        // 아래쪽으로
+        for (int i = 0; i < row - airRowDown - 1; i++) {
+            int tmp = map[row - 2 - i][column - 1][0];
+            map[row - i - 1][column - 1][0] = tmp;
+        }
+        // 오른쪽으로
+        for (int i = 0; i < column - 2; i++) {
+            int tmp = map[airRowDown][column - 2 - i][0];
+            map[airRowDown][column - i - 1][0] = tmp;
+        }
+        map[airRowDown][1][0] = 0;
+    }
+    public static void circularCounterClockwise() {
 
+        // 아래쪽으로
+        for (int i = 0; i < airRowUp - 1; i++) {
+            int tmp = map[airRowUp - 2 - i][0][0];
+            map[airRowUp - 1 - i][0][0] = tmp;
+        }
+        if (row -2 != airRowUp) {
+            // 오른쪽으로
+            for (int i = 0; i < column - 1; i++) {
+                int tmp = map[0][i + 1][0];
+                map[0][i][0] = tmp;
+            }
+        }
+        // 위로
+        for (int i = 0; airRowUp > i; i++) {
+            int tmp = map[i+1][column - 1][0];
+            map[i][column - 1][0] = tmp;
+        }
+        // 왼쪽으로
+        for (int i = 0; i < column - 2; i++) {
+            int tmp = map[airRowUp][column - 2 - i][0];
+            map[airRowUp][column - i - 1][0] = tmp;
+        }
+        map[airRowUp][1][0] = 0;
     }
 
+    public static void clearMap() {
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < column; j++) {
+                map[i][j][1] = 0;
+            }
+        }
+    }
 
 }
