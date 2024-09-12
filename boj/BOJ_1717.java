@@ -45,7 +45,13 @@ public class BOJ_1717 {
         if (parentA == parentB) {
             return;
         }
-        parent[parentA] = parentB;
+        if (a > b) {
+            parent[parentA] = parentB;
+        }
+        else {
+            parent[parentB] = parentA;
+        }
+
     }
     private static int find(int a) {
         if(a == parent[a]){
