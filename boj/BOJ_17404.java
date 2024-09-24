@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class BOJ_17404 {
-    static final int MAX = 1001 * 1001 + 3;;
+    static final int MAX = 1001 * 1001 + 3;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
