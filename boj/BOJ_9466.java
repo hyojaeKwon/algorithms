@@ -2,9 +2,10 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class BOJ_9466 {
-    public static int[] picks;
-    public static boolean[] visited, done;
-    public static int result;
+    protected static int[] picks;
+    protected static boolean[] visited;
+    protected static boolean[] done;
+    protected static int result;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
