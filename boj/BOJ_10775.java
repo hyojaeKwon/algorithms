@@ -28,7 +28,7 @@ public class BOJ_10775 {
                 result++;
                 makeUnion(parent - 1, parent);
             }
-            
+
         }
 
         System.out.println(result);
