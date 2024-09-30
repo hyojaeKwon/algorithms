@@ -25,7 +25,7 @@ public class BOJ_2623 {
                  map[u].add(v);
                  inDegree[v]++;
              }
-         }x
+         }
 
          Queue<Integer> queue = new LinkedList<>();
          ArrayList<Integer> ans = new ArrayList<>();
