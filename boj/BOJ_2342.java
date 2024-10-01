@@ -7,12 +7,14 @@ public class BOJ_2342 {
     private static int[] input;
     private static int[][][] dp;
     private static final int MAX_VALUE = 100000 * 4 + 1;
+
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         input = new int[st.countTokens()];
         input[0] = 0;
-
         for (int i = 1; i < input.length; i++) {
             input[i] = Integer.parseInt(st.nextToken());
         }
@@ -25,11 +27,17 @@ public class BOJ_2342 {
                 }
             }
         }
-        if(input.length == 1) System.out.println(0);
-        else System.out.println(solve());
+
+        if(input.length == 1) {
+            System.out.println(0);
+        }
+        else {
+            System.out.println(solve());
+        }
     }
 
     private static int solve() {
+        // Bottom up dp
         dp[0][0][0] = 0;
         for(int i = 1 ; i < input.length ; i++) {
             int next = input[i];
@@ -41,6 +49,7 @@ public class BOJ_2342 {
             }
         }
 
+        // 마지막에 발이 있어야 할 위치 중에서 최솟값을 찾는 로직
         int last = input[input.length - 1];
         int answer = MAX_VALUE;
         for(int i = 0 ; i < 5 ; i++) {
@@ -50,6 +59,7 @@ public class BOJ_2342 {
         return answer;
     }
 
+    // 발의 이동에 따라 드는 힘의 양을 계산하는 method
     private static int calPower(int from, int to) {
         if(from == to) return 1;
         else if(from == 0) return 2;
