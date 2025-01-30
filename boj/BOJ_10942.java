@@ -6,54 +6,63 @@ import java.util.StringTokenizer;
 public class BOJ_10942 {
 
     private static int size;
-    private static int[] input;
-    private static boolean[][] map;
+    private static int[] numbers;
+    private static boolean[][] isPalindrome;
 
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         size = Integer.parseInt(br.readLine());
-        input = new int[size];
-        map = new boolean[size][size];
+        numbers = new int[size];
+        isPalindrome = new boolean[size][size];
 
-        input(br);
-        generatePalindromeTable();
-        answering(br);
+        readInput(br);
+        preprocessPalindromeTable();
+        processQueries(br);
     }
 
-    private static void answering(BufferedReader br) throws IOException {
-        int times = Integer.parseInt(br.readLine());
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < times; i++) {
-            StringTokenizer stringTokenizer = new StringTokenizer(br.readLine());
-            int i1 = Integer.parseInt(stringTokenizer.nextToken());
-            int i2 = Integer.parseInt(stringTokenizer.nextToken());
-            sb.append(map[i1 - 1][i2 - 1] ? 1 : 0).append("\n");
-        }
-        System.out.println(sb);
-    }
-
-    private static void input(BufferedReader br) throws IOException {
+    private static void readInput(BufferedReader br) throws IOException {
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < size; i++) {
-            input[i] = Integer.parseInt(st.nextToken());
+            numbers[i] = Integer.parseInt(st.nextToken());
         }
     }
 
-    private static void generatePalindromeTable() {
+    private static void preprocessPalindromeTable() {
+        // 길이가 1인 경우(자기 자신) -> 항상 팰린드롬
         for (int i = 0; i < size; i++) {
-            map[i][i] = true;
+            isPalindrome[i][i] = true;
         }
 
-        for (int i = 0; i + 1 < size; i++) {
-            map[i][i + 1] = Math.abs(input[i] - input[i + 1]) == 0;
-        }
-
-        for (int diff = 2; diff <= size; diff++) {
-            for (int i = 0; i + diff < size; i++) {
-                int target = i + diff;
-                map[i][target] = map[i + 1][target - 1] && input[i] == input[target];
+        // 길이가 2인 경우 -> 두 수가 같으면 팰린드롬
+        for (int i = 0; i < size - 1; i++) {
+            if (numbers[i] == numbers[i + 1]) {
+                isPalindrome[i][i + 1] = true;
             }
         }
+
+        // 길이가 3 이상인 경우
+        for (int length = 3; length <= size; length++) {
+            for (int start = 0; start <= size - length; start++) {
+                int end = start + length - 1;
+                if (numbers[start] == numbers[end] && isPalindrome[start + 1][end - 1]) {
+                    isPalindrome[start][end] = true;
+                }
+            }
+        }
+    }
+
+    private static void processQueries(BufferedReader br) throws IOException {
+        int queryCount = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
+
+        while (queryCount-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken()) - 1;
+            int end = Integer.parseInt(st.nextToken()) - 1;
+            sb.append(isPalindrome[start][end] ? 1 : 0).append("\n");
+        }
+
+        System.out.print(sb);
     }
 }
