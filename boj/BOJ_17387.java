@@ -20,8 +20,8 @@ public class BOJ_17387 {
     }
 
     private static boolean segmentsIntersect(Segment s1, Segment s2) {
-        long cross1 = crossProduct(s1.p1, s1.p2, s2.p1) * crossProduct(s1.p1, s1.p2, s2.p2);
-        long cross2 = crossProduct(s2.p1, s2.p2, s1.p1) * crossProduct(s2.p1, s2.p2, s1.p2);
+        int cross1 = crossProduct(s1.p1, s1.p2, s2.p1) * crossProduct(s1.p1, s1.p2, s2.p2);
+        int cross2 = crossProduct(s2.p1, s2.p2, s1.p1) * crossProduct(s2.p1, s2.p2, s1.p2);
 
         if (cross1 == 0 && cross2 == 0) {
             return segmentsOverlap(s1, s2);
@@ -36,7 +36,7 @@ public class BOJ_17387 {
                 Math.min(s2.p1.y, s2.p2.y) <= Math.max(s1.p1.y, s1.p2.y);
     }
 
-    private static long crossProduct(Point a, Point b, Point c) {
+    private static int crossProduct(Point a, Point b, Point c) {
         long value = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
         return Long.compare(value, 0);
     }
