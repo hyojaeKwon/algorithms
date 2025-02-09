@@ -4,15 +4,15 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class BOJ_2098 {
+
     private static final int MAX = 16 * 1_000_000 + 1;
-    private static int bitmaskRange;
     private static int n;
     private static int[][] map;
     private static int[][] dp;
 
     public static void main(String[] args) {
         initialize();
-        System.out.println(solve(0,1));
+        System.out.println(solve(0, 1));
     }
 
     private static int solve(int cur, int visited) {
@@ -38,6 +38,7 @@ public class BOJ_2098 {
     }
 
     private static void initialize() {
+
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             n = Integer.parseInt(br.readLine());
             map = new int[n][n];
@@ -47,7 +48,7 @@ public class BOJ_2098 {
                     map[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            bitmaskRange = 1 << n;
+            int bitmaskRange = 1 << n;
             dp = new int[n][bitmaskRange];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < bitmaskRange; j++) {
