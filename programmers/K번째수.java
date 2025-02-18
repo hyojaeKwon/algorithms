@@ -1,6 +1,7 @@
 package programmers;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 public class K번째수 {
 
